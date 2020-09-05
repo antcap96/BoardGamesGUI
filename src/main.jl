@@ -89,12 +89,12 @@ end
 @guarded function restart_cb(widgetptr::Ptr, user_data)
     widget = convert(GtkButton, widgetptr)
     
-    data, canvas = user_data
+    data, canvas, play_button = user_data
 
     data.movelist = []
     data.boardlist = [initialboard(guidatagame(data)())]
 
-    #TODO: set play to false
+    ccall((:gtk_toggle_button_set_active , Gtk.libgtk), Ptr{GObject}, (Ptr{GObject}, Int),  play_button.handle, 0)
 
     reveal(canvas)
     nothing
@@ -209,7 +209,7 @@ function mainwindow(game::Type{<:Game}, strategies::Strategy...)
     signal_connect(mouseclick_cb, canvas, "button_press_event", Nothing, (Ptr{Gtk.GdkEventButton},), false, (data, strategies))
     signal_connect(draw_cb, canvas, "draw", Nothing, (Ptr{Nothing},), false, data)
     signal_connect(play_cb, play, "toggled", Nothing, (), false, (data, strategies, canvas))
-    signal_connect(restart_cb, restart, "clicked", Nothing, (), false, (data, canvas))
+    signal_connect(restart_cb, restart, "clicked", Nothing, (), false, (data, canvas, play))
     signal_connect(players_combobox_cb, players_combobox, "changed", Nothing, (), false, data)
     for i in 1:n
         signal_connect(parameters_combobox_cb, strategy_combobox[i], "changed", Nothing, (), false, (data, i))
