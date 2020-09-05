@@ -3,6 +3,12 @@ uuid = "e332fe05-8afb-4eeb-8e5c-a7a41a42eb70"
 authors = ["António Capela <acapela96@hotmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+BoardGames = "a25c074d-a6f8-44e3-8722-7dc1f329dbb4"
+Cairo = "159f3aea-2a34-519c-b102-8c37f9878175"
+Graphics = "a2bd30eb-e257-5431-a919-1863eab51364"
+Gtk = "4c0ca9eb-093a-5379-98c5-f87ac0bbbf44"
+
 [compat]
 julia = "1"
 
